@@ -1,0 +1,73 @@
+#container{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:0px;
+	left: 0px;
+	background: #1e5799; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #1e5799 0%, #207cca 65%, #7db9e8 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#1e5799), color-stop(65%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #1e5799 0%,#207cca 65%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #1e5799 0%,#207cca 65%,#7db9e8 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #1e5799 0%,#207cca 65%,#7db9e8 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #1e5799 0%,#207cca 65%,#7db9e8 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#header{
+
+	
+	
+	height: 10%;
+	width: 100%;
+	background: black;
+}
+
+#cardsCont{
+	
+	padding-top :10%;
+}
+
+.card{
+	position: relative;
+	background: rgba(0,0,0,0.9);
+	width:240px;
+	height:150px;
+	border-radius: 8px;
+	color: white;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+	font-size:14px;
+	padding:2% 8%;
+
+}
+.banklogo{
+	
+	text-align: right;
+}
+
+.cardnumber{
+	margin-top: 15%;
+	padding: 2px;
+	
+}
+.valid{
+	margin-top:4%;
+}
+.disp{
+	display: inline-block;
+}
+.print{
+	font-size: 8px;
+	width: 15%;
+	margin-left: 40%;	
+}
+.holdername{
+	font-weight: bold;
+	margin-top: 6%;
+}
+.visalogo{
+	position: absolute;
+bottom: 6%;
+right: 8%;
+}

@@ -1,4 +1,4 @@
-#container{
+.container{
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -14,7 +14,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-#header{
+/*#header{
 
 	
 	
@@ -22,7 +22,7 @@
 	width: 100%;
 	background: black;
 }
-
+*/
 #cardsCont{
 	
 	padding-top :10%;
@@ -44,6 +44,10 @@
 .banklogo{
 	
 	text-align: right;
+}
+
+.emptycard{
+	cursor: pointer;
 }
 
 .cardnumber{
@@ -68,6 +72,6 @@
 }
 .visalogo{
 	position: absolute;
-bottom: 6%;
-right: 8%;
+	bottom: 6%;
+	right: 8%;
 }

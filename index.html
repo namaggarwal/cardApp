@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VISA Card App</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css" />
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/jquery.mobile-1.4.3.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="loginPage">
+	<div role="main" class="ui-content">		
+		<div id="loginCont" style="margin-top:30%">					
+			<div class="ui-grid-a">
+      			<div class="ui-block-a" style="width:20%">
+        			<input type="text" name="lgnCnCode" id="lgnCnCode" placeholder="+65">
+      			</div>
+      			<div class="ui-block-b" style="width:2%">
+      			</div>
+			    <div class="ui-block-c" style="width:78%">
+        			<input type="text" name="lgnPNum" id="lgnPNum" placeholder="Phone Number">
+      			</div>
+      		</div>
+			<input type="password" id="lgnPwd" placeholder="Password" />
+			<div class="ui-grid-a" style="text-align:center">				
+				<button class="ui-btn ui-btn-inline ui-shadow ui-mini">Login</button>
+			</div>
+			<div style="margin-top:4%;text-align:center">
+				<a href="#regPage" class="ui-btn ui-btn-inline ui-shadow ui-mini">SignUp</a>
+			</div>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="regPage">
+	<div data-role="main" class="ui-content">
+		<div style="margin-top:30%">
+			<div class="ui-grid-a">
+      			<div class="ui-block-a" style="width:20%">
+        			<input type="text" name="regCnCode" id="regCnCode" placeholder="+65">
+      			</div>
+  				<div class="ui-block-b" style="width:2%">
+  				</div>
+			    <div class="ui-block-c" style="width:78%">
+        			<input type="text" name="regPNum" id="regPNum" placeholder="Phone Number">
+      			</div>
+      		</div>
+      		<div align="center">
+      		<input type="password" name="regpw1" id="regpw1" placeholder="Password">
+      		<input type="password" name="regpw2" id="regpw2" placeholder="Confirm Password">
+      		</div>
+      		<div align="center">
+      			<button id="reg" class="ui-btn ui-btn-inline ui-shadow ui-mini">Register</button>    		
+    		</div>
+    		<div style="margin-top:4%;text-align:center">
+				<a href="#loginPage" class="ui-btn ui-btn-inline ui-shadow ui-mini">Login</a>
+			</div>
+		</div>
+	</div><!-- /content -->
+</div> <!-- /page -->
+
+<script type="text/javascript">
+
+	$("document").ready(function(){
+
+		$("#reg").on("click",onRegistrationClick);
+
+	});
+
+	function onRegistrationClick(){
+
+
+		var cc = $("#regCnCode").val(),
+			pn = $("#regPNum").val(),
+			pwd = $("#regpw1").val(),
+			cpwd = $("#regpw1").val();
+
+		$.ajax({
+
+			url:"http://localhost/CardAppBackend/register",
+			data:{"cc":cc,"pn":pn,"pwd":pwd,"cpwd":cpwd},
+			type:"POST",
+			crossDomain :true,
+			success:function(data){
+
+				alert(data);
+			},
+			error:function(err){
+
+
+			}
+
+		});
+
+
+	}
+
+</script>
+
+</body>
+</html>

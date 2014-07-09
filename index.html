@@ -15,12 +15,26 @@
 </div>
 
 <div data-role="page" id="cardPage">
+	<div data-role="dialog" id="popupAddCard" data-theme="a" class="ui-corner-all">
+	    <form>
+	        <div style="padding:10px 20px;">
+	            <h3>Please sign in</h3>
+	            <label for="un" class="ui-hidden-accessible">Username:</label>
+	            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+	            <label for="pw" class="ui-hidden-accessible">Password:</label>
+	            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+	            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+	        </div>
+	    </form>
+	</div>
+
 	<div data-role="popup" id="popupMenu" data-theme="a">
         <ul data-role="listview">            
-            <li data-icon="plus"><a href="#">Add Card</a></li>
+            <li data-icon="plus" ><a href="#" data-popup="popupAddCard" class="opopup">Add Card</a></li>
             <li data-icon="info"><a href="#">Logout</a></li>            
         </ul>
 	</div>
+	
 	<div data-role="header" data-theme="a">
 		 <p>&nbsp;</p>
 		 <a style="padding-left:0.5em" data-rel="popup" href="#popupMenu" class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
@@ -92,17 +106,19 @@
 	$("document").ready(function(){
 		$("#errorpopup").enhanceWithin().popup();
 		$(".cpage").on("click",onChangePageButtonClick);
-		//$(".opopup").on("click",onOpenPopUpButtonClick);
+		$(".opopup").on("click",onOpenPopUpButtonClick);
 		$("#reg").on("click",onRegistrationClick);
 		$("#login").on("click",onLoginClick);
 
 	});
 	
-/*	function onOpenPopUpButtonClick(){
-	
+	function onOpenPopUpButtonClick(){
+		
 		var btn = $(this);
-		$("#"+btn.attr("data-popup")).popup("open");
-	}*/
+		
+		$.mobile.changePage("#popupAddCard",true,true,"pop");
+		//$("#"+btn.attr("data-popup")).popup("open");
+	}
 	
 	function onChangePageButtonClick(){
 		

@@ -10,8 +10,29 @@
 	<script src="js/jquery.mobile-1.4.3.min.js"></script>
 </head>
 <body>
+<div data-role="popup" data-overlay-theme="b" data-theme="b" id="errorpopup">
+  		<p id="errmsg"></p>
+</div>
 
-<div data-role="page" id="loginPage">
+<div data-role="page" id="cardPage">
+	<div data-role="popup" id="popupMenu" data-theme="a">
+        <ul data-role="listview">            
+            <li data-icon="plus"><a href="#">Add Card</a></li>
+            <li data-icon="info"><a href="#">Logout</a></li>            
+        </ul>
+	</div>
+	<div data-role="header" data-theme="a">
+		 <p>&nbsp;</p>
+		 <a style="padding-left:0.5em" data-rel="popup" href="#popupMenu" class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+		
+	</div><!-- /content -->
+</div><!-- /page -->
+
+
+<div data-role="page" id="loginPage">	
+	
 	<div role="main" class="ui-content">		
 		<div id="loginCont" style="margin-top:30%">					
 			<div class="ui-grid-a">
@@ -29,7 +50,7 @@
 				<button id="login" class="ui-btn ui-btn-inline ui-shadow ui-mini">Login</button>
 			</div>
 			<div style="margin-top:4%;text-align:center">
-				<a href="#regPage" class="ui-btn ui-btn-inline ui-shadow ui-mini">SignUp</a>
+				<button data-page="regPage" class="cpage ui-btn ui-btn-inline ui-shadow ui-mini">SignUp</button>
 			</div>
 		</div>
 	</div><!-- /content -->
@@ -56,7 +77,7 @@
       			<button id="reg" class="ui-btn ui-btn-inline ui-shadow ui-mini">Register</button>    		
     		</div>
     		<div style="margin-top:4%;text-align:center">
-				<a href="#loginPage" class="ui-btn ui-btn-inline ui-shadow ui-mini">Login</a>
+				<button data-page="loginPage" class="cpage ui-btn ui-btn-inline ui-shadow ui-mini">Login</button>
 			</div>
 		</div>
 	</div><!-- /content -->
@@ -64,21 +85,31 @@
 
 
 
-<div data-role="page" id="cardPage">
-	<div role="main" class="ui-content">
-		Add card
-	</div><!-- /content -->
-</div><!-- /page -->
 
-
+<script src="js/common.js"></script>
 <script type="text/javascript">
 
 	$("document").ready(function(){
-
+		$("#errorpopup").enhanceWithin().popup();
+		$(".cpage").on("click",onChangePageButtonClick);
+		//$(".opopup").on("click",onOpenPopUpButtonClick);
 		$("#reg").on("click",onRegistrationClick);
 		$("#login").on("click",onLoginClick);
 
 	});
+	
+/*	function onOpenPopUpButtonClick(){
+	
+		var btn = $(this);
+		$("#"+btn.attr("data-popup")).popup("open");
+	}*/
+	
+	function onChangePageButtonClick(){
+		
+		var btn = $(this);
+		$.mobile.changePage("#"+btn.attr("data-page"));
+		
+	}
 
 	function onRegistrationClick(){
 
@@ -87,25 +118,30 @@
 			pn = $("#regPNum").val(),
 			pwd = $("#regpw1").val(),
 			cpwd = $("#regpw1").val();
-		$("body").addClass('ui-disabled');
+		
 		$.mobile.loading('show');
 		$.ajax({
 
-			url:"http://localhost/CardAppBackend/register",
+			url:common.baseUrl+"/register",
 			data:{"cc":cc,"pn":pn,"pwd":pwd,"cpwd":cpwd},
 			type:"POST",
 			crossDomain :true,
 			success:function(data){
-
+				
 				data = $.parseJSON(data);
-				$.mobile.changePage("#loginPage",{transition:"flip"});
-				$.mobile.loading('hide');
-				$("body").removeClass('ui-disabled');
+				$.mobile.loading('hide');				
+
+				if(data["REQUEST_STATUS"] == 1){
+					$.mobile.changePage("#cardPage");	
+				}else{
+					$("#errmsg").html(data["REQUEST_MESSAGE"]);
+					$("#errorpopup").popup("open");
+				}
 			},
 			error:function(err){
-
 				$.mobile.loading('hide');
-				$("body").removeClass('ui-disabled');
+				$("#errmsg").html("Seems like we lost the connection.");
+				$("#errorpopup").popup("open");
 			}
 
 		});
@@ -120,12 +156,11 @@
 		var cc = $("#lgnCnCode").val(),
 			pn = $("#lgnPNum").val(),
 			pwd = $("#lgnPwd").val();
-			
-		$("body").addClass('ui-disabled');
+					
 		$.mobile.loading('show');
 		$.ajax({
 
-			url:"http://localhost/CardAppBackend/login",
+			url:common.baseUrl+"/login",
 			data:{"cc":cc,"pn":pn,"pwd":pwd},
 			type:"POST",
 			crossDomain :true,
@@ -133,16 +168,21 @@
 
 				data = $.parseJSON(data);
 				$.mobile.loading('hide');
-				$("body").removeClass('ui-disabled');
-								
+				
+				
 				if(data["REQUEST_STATUS"] == 1){
 					$.mobile.changePage("#cardPage");	
-				}				
+				}else{
+					$("#errmsg").html(data["REQUEST_MESSAGE"]);
+					$("#errorpopup").popup("open");
+				}
 			},
 			error:function(err){
-
+				
 				$.mobile.loading('hide');
-				$("body").removeClass('ui-disabled');
+				$("#errmsg").html("Seems like we lost the connection.");
+				$("#errorpopup").popup("open");
+				
 
 			}
 

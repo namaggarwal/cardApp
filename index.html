@@ -14,8 +14,32 @@
   		<p id="errmsg"></p>
 </div>
 
-<div data-role="page" id="cardPage">
+<div data-role="page" id="loginPage">	
+	
+	<div role="main" class="ui-content">		
+		<div id="loginCont" style="margin-top:30%">					
+			<div class="ui-grid-a">
+      			<div class="ui-block-a" style="width:20%">
+        			<input type="text" name="lgnCnCode" id="lgnCnCode" placeholder="+65">
+      			</div>
+      			<div class="ui-block-b" style="width:2%">
+      			</div>
+			    <div class="ui-block-c" style="width:78%">
+        			<input type="text" name="lgnPNum" id="lgnPNum" placeholder="Phone Number">
+      			</div>
+      		</div>
+			<input type="password" id="lgnPwd" placeholder="Password" />
+			<div class="ui-grid-a" style="text-align:center">				
+				<button id="login" class="ui-btn ui-btn-inline ui-shadow ui-mini">Login</button>
+			</div>
+			<div style="margin-top:4%;text-align:center">
+				<button data-page="regPage" class="cpage ui-btn ui-btn-inline ui-shadow ui-mini">SignUp</button>
+			</div>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page -->
 
+<div data-role="page" id="cardPage">
 	<div data-role="popup" id="popupAddCard" data-dismissible="false" data-overlay-theme="b" data-position-to="window" data-theme="a" class="ui-corner-all">
 		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 		<div data-role="header" data-theme="a">
@@ -24,19 +48,17 @@
 	    <form>
 	        <div style="padding:10px 20px;">
 	        	<fieldset data-role="controlgroup">
-	        		<div class="ui-grid-a">
-	        			
-				    		<input type="text" id="cPCardno" placeholder="4000xxxxxxxxxxxx" />
-				    	
+	        		<div class="ui-grid-a">	        			
+				    	<input type="text" id="cPCardno" placeholder="4000xxxxxxxxxxxx" />				    	
 				    </div>
 				    <div class="ui-grid-a">
 				    	<div class="ui-block-a"  style="width:48%">
-				    		<input type="text" onfocus="(this.type='month')" onblur="(this.type='text')" id="cPDate" placeholder="Valid To" />
+				    		<input type="text" id="cpValid" onfocus="(this.type='month')" onblur="(this.type='text')" id="cPDate" placeholder="Valid Thru" />
 				    	</div>
 				    	<div class="ui-block-b" style="width:4%">
       					</div>
 				    	<div class="ui-block-c" style="width:48%">
-				    		<input type="text"  id="cPCardno" placeholder="CVV" />
+				    		<input type="text"  id="cPCvv" placeholder="CVV" />
 				    	</div>
 				    </div>
 				    <div class="ui-grid-a">
@@ -62,32 +84,6 @@
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 		
-	</div><!-- /content -->
-</div><!-- /page -->
-
-
-<div data-role="page" id="loginPage">	
-	
-	<div role="main" class="ui-content">		
-		<div id="loginCont" style="margin-top:30%">					
-			<div class="ui-grid-a">
-      			<div class="ui-block-a" style="width:20%">
-        			<input type="text" name="lgnCnCode" id="lgnCnCode" placeholder="+65">
-      			</div>
-      			<div class="ui-block-b" style="width:2%">
-      			</div>
-			    <div class="ui-block-c" style="width:78%">
-        			<input type="text" name="lgnPNum" id="lgnPNum" placeholder="Phone Number">
-      			</div>
-      		</div>
-			<input type="password" id="lgnPwd" placeholder="Password" />
-			<div class="ui-grid-a" style="text-align:center">				
-				<button id="login" class="ui-btn ui-btn-inline ui-shadow ui-mini">Login</button>
-			</div>
-			<div style="margin-top:4%;text-align:center">
-				<button data-page="regPage" class="cpage ui-btn ui-btn-inline ui-shadow ui-mini">SignUp</button>
-			</div>
-		</div>
 	</div><!-- /content -->
 </div><!-- /page -->
 
@@ -122,111 +118,7 @@
 
 
 <script src="js/common.js"></script>
-<script type="text/javascript">
-
-	$("document").ready(function(){
-		$("#errorpopup").enhanceWithin().popup();		
-		$(".cpage").on("click",onChangePageButtonClick);
-		$(".closePanel").on("click",onClosePanelClick);
-		$("#reg").on("click",onRegistrationClick);
-		$("#login").on("click",onLoginClick);		
-
-	});
-	
-	function onClosePanelClick(){
-		
-		var btn = $(this);			
-		$("#"+btn.attr("data-panel")).panel("close");
-	}
-	
-	function onChangePageButtonClick(){
-		
-		var btn = $(this);
-		$.mobile.changePage("#"+btn.attr("data-page"));
-		
-	}
-
-	function onRegistrationClick(){
-
-
-		var cc = $("#regCnCode").val(),
-			pn = $("#regPNum").val(),
-			pwd = $("#regpw1").val(),
-			cpwd = $("#regpw1").val();
-		
-		$.mobile.loading('show');
-		$.ajax({
-
-			url:common.baseUrl+"/register",
-			data:{"cc":cc,"pn":pn,"pwd":pwd,"cpwd":cpwd},
-			type:"POST",
-			crossDomain :true,
-			success:function(data){
-				
-				data = $.parseJSON(data);
-				$.mobile.loading('hide');				
-
-				if(data["REQUEST_STATUS"] == 1){
-					$.mobile.changePage("#cardPage");	
-				}else{
-					$("#errmsg").html(data["REQUEST_MESSAGE"]);
-					$("#errorpopup").popup("open");
-				}
-			},
-			error:function(err){
-				$.mobile.loading('hide');
-				$("#errmsg").html("Seems like we lost the connection.");
-				$("#errorpopup").popup("open");
-			}
-
-		});
-
-
-	}
-
-
-	function onLoginClick(){
-
-
-		var cc = $("#lgnCnCode").val(),
-			pn = $("#lgnPNum").val(),
-			pwd = $("#lgnPwd").val();
-					
-		$.mobile.loading('show');
-		$.ajax({
-
-			url:common.baseUrl+"/login",
-			data:{"cc":cc,"pn":pn,"pwd":pwd},
-			type:"POST",
-			crossDomain :true,
-			success:function(data){
-
-				data = $.parseJSON(data);
-				$.mobile.loading('hide');
-				
-				
-				if(data["REQUEST_STATUS"] == 1){
-					$.mobile.changePage("#cardPage");	
-				}else{
-					$("#errmsg").html(data["REQUEST_MESSAGE"]);
-					$("#errorpopup").popup("open");
-				}
-			},
-			error:function(err){
-				
-				$.mobile.loading('hide');
-				$("#errmsg").html("Seems like we lost the connection.");
-				$("#errorpopup").popup("open");
-				
-
-			}
-
-		});
-
-
-	}
-
-</script>
+<script type="text/javascript" src="js/app.js"></script>
 
 </body>
 </html>

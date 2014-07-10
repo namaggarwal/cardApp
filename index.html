@@ -15,29 +15,50 @@
 </div>
 
 <div data-role="page" id="cardPage">
-	<div data-role="dialog" id="popupAddCard" data-theme="a" class="ui-corner-all">
+
+	<div data-role="popup" id="popupAddCard" data-dismissible="false" data-overlay-theme="b" data-position-to="window" data-theme="a" class="ui-corner-all">
+		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+		<div data-role="header" data-theme="a">
+    		<h1>Add a card</h1>
+    	</div>
 	    <form>
 	        <div style="padding:10px 20px;">
-	            <h3>Please sign in</h3>
-	            <label for="un" class="ui-hidden-accessible">Username:</label>
-	            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
-	            <label for="pw" class="ui-hidden-accessible">Password:</label>
-	            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
-	            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+	        	<fieldset data-role="controlgroup">
+	        		<div class="ui-grid-a">
+	        			
+				    		<input type="text" id="cPCardno" placeholder="4000xxxxxxxxxxxx" />
+				    	
+				    </div>
+				    <div class="ui-grid-a">
+				    	<div class="ui-block-a"  style="width:48%">
+				    		<input type="text" onfocus="(this.type='month')" onblur="(this.type='text')" id="cPDate" placeholder="Valid To" />
+				    	</div>
+				    	<div class="ui-block-b" style="width:4%">
+      					</div>
+				    	<div class="ui-block-c" style="width:48%">
+				    		<input type="text"  id="cPCardno" placeholder="CVV" />
+				    	</div>
+				    </div>
+				    <div class="ui-grid-a">
+				    	<button type="button" class="ui-btn ui-corner-all" >Add</button>
+				    </div>
+
+				</fieldset>	           
 	        </div>
 	    </form>
 	</div>
-
-	<div data-role="popup" id="popupMenu" data-theme="a">
-        <ul data-role="listview">            
-            <li data-icon="plus" ><a href="#" data-popup="popupAddCard" class="opopup">Add Card</a></li>
+	<div data-role="panel" id="optionPanel" data-theme="b" data-display="overlay" data-position="right">
+    	<!-- panel content goes here -->
+    	<ul data-role="listview">            
+            <li data-icon="plus" ><a href="#popupAddCard" data-rel="popup" data-panel="optionPanel" class="closePanel">Add Card</a></li>
             <li data-icon="info"><a href="#">Logout</a></li>            
         </ul>
-	</div>
+	</div><!-- /panel -->
 	
 	<div data-role="header" data-theme="a">
 		 <p>&nbsp;</p>
-		 <a style="padding-left:0.5em" data-rel="popup" href="#popupMenu" class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
+		 <a style="padding-left:0.5em" href="#optionPanel" data-rel="panel"  class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
+
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 		
@@ -104,20 +125,18 @@
 <script type="text/javascript">
 
 	$("document").ready(function(){
-		$("#errorpopup").enhanceWithin().popup();
+		$("#errorpopup").enhanceWithin().popup();		
 		$(".cpage").on("click",onChangePageButtonClick);
-		$(".opopup").on("click",onOpenPopUpButtonClick);
+		$(".closePanel").on("click",onClosePanelClick);
 		$("#reg").on("click",onRegistrationClick);
-		$("#login").on("click",onLoginClick);
+		$("#login").on("click",onLoginClick);		
 
 	});
 	
-	function onOpenPopUpButtonClick(){
+	function onClosePanelClick(){
 		
-		var btn = $(this);
-		
-		$.mobile.changePage("#popupAddCard",true,true,"pop");
-		//$("#"+btn.attr("data-popup")).popup("open");
+		var btn = $(this);			
+		$("#"+btn.attr("data-panel")).panel("close");
 	}
 	
 	function onChangePageButtonClick(){

@@ -12,13 +12,13 @@ var common = {
     },
     logout:function(){
 
-		localStorage.clear();
+		localStorage.clear();        
 		$.mobile.changePage("#loginPage");
 	},
     gotoDefaultPage:function(){
 
         var def = localStorage.defpage;
-        console.log(def);
+        
         if(def && def != ""){
             $.mobile.changePage("#"+def);
         }else{
@@ -37,6 +37,19 @@ var common = {
         localStorage.setItem('pn',data.pn);
         localStorage.setItem('cc',data.cc);
         localStorage.setItem('cpn',data.cpn);
+        localStorage.setItem('cards',JSON.stringify(data.CARDS));
+
+        if(data.CARDS.length != 0){
+
+            for(var i in data.CARDS){
+                if(data.CARDS[i].isdefault == 1){
+                    localStorage.setItem('defcard',JSON.stringify(data.CARDS[i]));
+                    break;
+                }
+            }
+        }
+
+
     }
 
 

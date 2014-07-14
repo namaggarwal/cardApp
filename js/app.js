@@ -10,6 +10,7 @@ $("document").ready(function(){
 	$("#pPBtnPull").on("click",onPullButtonClick);
 	$(".pPBtnAmt").on("click",onAmtButtonClick);
 	$("#cnclPull").on("click",onCancelPullButtonClick);
+	$(".tPTill").on("click",onPeriodChange);
 	$("body").pagecontainer({beforeshow: beforeshowpage,show:afterpageshow});
 
 });
@@ -37,20 +38,27 @@ var afterpageshow = function(event,ui){
 };
 
 
+function onPeriodChange(){
+
+	$("#transPanel").panel('close');
+	localStorage.till = $(this).attr("data-till");
+	onTransPageShow();
+}
+
 function onTransPageShow(){
 
 
 	var till = localStorage.till;
 
-	if(till == ""){
+	if(till == undefined){
 
 		localStorage.till = 1;
 		till = 1;
 	}
+	console.log(till);
 	$.mobile.loading('show');
 	$("#popupTrans").popup('open');
 	
-        
 	$.ajax({
 
 		url:common.baseUrl+"/trans?act=list",
@@ -59,16 +67,59 @@ function onTransPageShow(){
 		crossDomain :true,
 		success:function(data){
 
-			data = $.parseJSON(data);			
+			data = $.parseJSON(data);
+			
 			$.mobile.loading('hide');
+
+
 			if(data["REQUEST_STATUS"] == 1){				
-				var str = '';
-				str +="<p>Received "+amt+"$</p>";
-				str +="<p>Transaction ID : "+data["TRANSID"]+"</p>";
-				$("#popupRecSuccess").html(str);
+				
+
+				$("#tPTot").html(data["TOTAL"]+"$");
+				$("#tPTR").html(data["TOTALREC"]+"$");
+				$("#tPTS").html(data["TOTALSENT"]+"$");
+
+				var str ='';
+				for(var tr in data["TRANSREC"]){
+
+					str += '<li>';
+					str += '<div class="ui-grid-a">';
+		        	str += '<div class="ui-block-a">';
+		        	str += '<div class="fontBold">'+data["TRANSREC"][tr]["cardname"]+'<span class="tpCardNum">('+data["TRANSREC"][tr]["cardnum"]+')</span></div>';
+		        	str += '<div class="tpTime">'+data["TRANSREC"][tr]["transtime"]+'</div>';
+		        	str += '</div>';
+		        	str += '<div class="ui-block-b alignRight">'+data["TRANSREC"][tr]["amount"]+'$</div>';
+	        		str += '</div>';
+					str += '</li>';
+
+				}
+
+				$("#tPListRec").html(str);
+				$("#tPListRec").listview('refresh');
+
+				str ='';
+				for(var tr in data["TRANSSENT"]){
+
+					str += '<li>';
+					str += '<div class="ui-grid-a">';
+		        	str += '<div class="ui-block-a">';
+		        	str += '<div class="fontBold">'+data["TRANSSENT"][tr]["cardname"]+'<span class="tpCardNum">('+data["TRANSSENT"][tr]["cardnum"]+')</span></div>';
+		        	str += '<div class="tpTime">'+data["TRANSSENT"][tr]["transtime"]+'</div>';
+		        	str += '</div>';
+		        	str += '<div class="ui-block-b alignRight">'+data["TRANSSENT"][tr]["amount"]+'$</div>';
+	        		str += '</div>';
+					str += '</li>';
+
+				}
+
+				$("#tPListSent").html(str);
+				$("#tPListSent").listview('refresh');
 
 				$("#popupTrans").on( "popupafterclose", function( event, ui ) {
-					$("#popupTrans").off("popupafterclose");					
+
+					$("#popupTrans").off("popupafterclose");
+
+
 				});
 				$("#popupTrans").popup('close');
 
@@ -147,7 +198,27 @@ function onAddCardClick(){
 			$.mobile.loading('hide');				
 
 			if(data["REQUEST_STATUS"] == 1){
-				
+
+				//get all the cards
+				var cards = $.parseJSON(localStorage.cards);
+
+				if(cards.length == 0){
+					cards = new Object;
+				}
+
+				cards[data["CARD"].id] = data["CARD"];				
+				//Store back all the cards
+				localStorage.cards = JSON.stringify(cards);
+
+				// If this is the default card
+				if(data["CARD"].isdefault == 1){
+
+					localStorage.defcard = JSON.stringify(data["CARD"]);
+					localStorage.transcard = JSON.stringify(data["CARD"]);
+				}
+
+
+
 				$("#popupAddCard").on( "popupafterclose", function( event, ui ) {
 
 					$("#popupSuccess").popup('open',{transition:"fade"});

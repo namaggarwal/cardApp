@@ -1,0 +1,17 @@
+.tpCardNum{
+	font-size:0.8em;
+	font-weight: normal;
+}
+
+.tpTime{
+	text-align:center;
+	font-style:italic;
+}
+
+.alignRight{
+	text-align:right
+}
+
+.fontBold{
+	font-weight: bold;
+}

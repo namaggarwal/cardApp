@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css" />
+	<link rel="stylesheet" href="css/app.css" />
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/jquery.mobile-1.4.3.min.js"></script>
 </head>
@@ -47,14 +48,59 @@
 	<div data-role="panel" id="transPanel" data-theme="b" data-display="overlay" data-position="right">
     	<!-- panel content goes here -->
     	<ul data-role="listview">            
-                        
+			 <li data-icon="none"><a data-till="1" class="tPTill" href="#">Today</a></li>
+			 <li data-icon="none"><a data-till="2" class="tPTill" href="#">Yesterday</a></li>
+			 <li data-icon="none"><a data-till="3" class="tPTill" href="#">This Week</a></li>
+			 <li data-icon="none"><a data-till="4" class="tPTill" href="#">This Month</a></li>
+			 <li data-icon="none"><a data-till="5" class="tPTill" href="#">Last Month</a></li>
         </ul>
 	</div><!-- /panel -->
-	<div data-role="header" data-theme="a">
+	<div data-role="header" data-theme="a"  data-position="fixed">
 		 <a href="#cardPage" data-rel="page"  data-transition="slide"  class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-home">Cards</a>
 		 <p>&nbsp;</p>
 		  <a style="padding-left:0.5em" href="#transPanel" data-rel="panel"  class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>		
-	</div><!-- /header -->	
+	</div><!-- /header -->
+	<div data-role="main">
+		<ul data-role="listview" data-inset="true">
+	        <li style="font-weight:bold">
+	        	<div class="ui-grid-a">
+	        		<div class="ui-block-a">Total</div>
+	        		<div id="tPTot" class="ui-block-b" style="text-align:right">0$</div>
+	        	</div>
+	        </li>	        
+	    </ul>
+		
+	    <div data-role="collapsible" style="margin-top:0px;margin-bottom:0px">
+	        <h3>
+	        	<div class="ui-grid-a">
+	        		<div class="ui-block-a">Received</div>
+	        		<div id="tPTR" class="ui-block-b" style="text-align:right">0$</div>
+	        	</div>
+	        </h3>
+	    	<ul id="tPListRec" data-role="listview">	       	
+	    	</ul>
+	    </div>
+	    <div data-role="collapsible" style="margin-top:0px;margin-bottom:0px">
+	        <h3>
+	        	<div class="ui-grid-a">
+	        		<div class="ui-block-a">Sent</div>
+	        		<div id="tPTS" class="ui-block-b" style="text-align:right">0$</div>
+	        	</div>
+	    	</h3>
+	    	<ul id="tPListSent" data-role="listview" >
+	    		<li>
+    				<div class="ui-grid-a">
+		        		<div class="ui-block-a">
+		        			<div class="fontBold">Naman Aggarwal <span class="tpCardNum">(4166464300237609)</span></div>		        			
+		        			<div class="tpTime">2014-07-12 12:34 pm</div>
+		        		</div>
+		        		<div class="ui-block-b alignRight">0$</div>
+	        		</div>
+	    		</li>	       		
+	    	</ul>
+	    </div>
+		
+	</div>
 </div>
 
 <div data-role="page" id="pullPage">

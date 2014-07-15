@@ -15,3 +15,57 @@
 .fontBold{
 	font-weight: bold;
 }
+
+#cardscontainer{
+	overflow: hidden;
+white-space: nowrap;
+}
+.card{
+	display: inline-block;
+	position: relative;
+	background: rgba(0,0,0,0.9);
+	width:240px;
+	height:150px;
+	border-radius: 8px;
+	color: white;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+	font-size:14px;
+	padding:2% 8%;
+	margin: 0% 4%;
+
+}
+.banklogo{
+	
+	text-align: right;
+}
+
+.emptycard{
+	cursor: pointer;
+}
+
+.cardnumber{
+	margin-top: 15%;
+	padding: 2px;
+	
+}
+.valid{
+	margin-top:4%;
+}
+.disp{
+	display: inline-block;
+}
+.print{
+	font-size: 8px;
+	width: 15%;
+	margin-left: 40%;	
+}
+.holdername{
+	font-weight: bold;
+	margin-top: 6%;
+}
+.visalogo{
+	position: absolute;
+	bottom: 6%;
+	right: 8%;
+}

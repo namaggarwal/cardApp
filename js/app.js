@@ -1,3 +1,8 @@
+var cardCount = 3,
+	currCard  = 1,
+	cardLeft  = 0;
+
+
 $("document").ready(function(){
 
 	$("#errorpopup").enhanceWithin().popup();		
@@ -12,6 +17,9 @@ $("document").ready(function(){
 	$("#cnclPull").on("click",onCancelPullButtonClick);
 	$(".tPTill").on("click",onPeriodChange);
 	$("body").pagecontainer({beforeshow: beforeshowpage,show:afterpageshow});
+	$.event.special.swipe.horizontalDistanceThreshold = 10;
+	$("#cardscontainer").on("swipeleft",onCardSwipeLeft);
+	$("#cardscontainer").on("swiperight",onCardSwipeRight);
 
 });
 
@@ -34,6 +42,10 @@ var afterpageshow = function(event,ui){
 	if(toPage.attr("id") == "transPage"){
 
 		onTransPageShow();
+
+	}else if(toPage.attr("id") == "cardPage"){
+
+		onCardPageShow();
 	}
 };
 
@@ -43,6 +55,45 @@ function onPeriodChange(){
 	$("#transPanel").panel('close');
 	localStorage.till = $(this).attr("data-till");
 	onTransPageShow();
+}
+
+function onCardPageShow(){
+
+	cardLeft = ($("#cardscontainer").width() - $(".card").eq(0).outerWidth())/2;
+	$(".card").css("left",cardLeft+"px");
+
+}
+
+
+function onCardSwipeLeft(){
+	
+	if(currCard < cardCount){
+
+		var currLeft = $(".card").css("left");
+		currLeft = currLeft.slice(0,currLeft.length-2);
+		currCard++;		
+		$(".card").animate({"left":(parseFloat(currLeft,10)-$(".card").eq(0).outerWidth())+"px"},200);
+		
+
+	}
+	
+	
+}
+
+function onCardSwipeRight(){
+
+
+	if(currCard != 1){
+
+		var currLeft = $(".card").css("left");
+		currLeft = currLeft.slice(0,currLeft.length-2);
+		currCard--;		
+		$(".card").animate({"left":(parseFloat(currLeft,10)+$(".card").eq(0).outerWidth())+"px"},200);
+		
+
+	}
+	
+	
 }
 
 function onTransPageShow(){
@@ -55,7 +106,7 @@ function onTransPageShow(){
 		localStorage.till = 1;
 		till = 1;
 	}
-	console.log(till);
+	
 	$.mobile.loading('show');
 	$("#popupTrans").popup('open');
 	

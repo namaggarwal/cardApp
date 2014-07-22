@@ -20,6 +20,7 @@ $("document").ready(function(){
 	$.event.special.swipe.horizontalDistanceThreshold = 10;
 	$("#cardscontainer").on("swipeleft",onCardSwipeLeft);
 	$("#cardscontainer").on("swiperight",onCardSwipeRight);
+	 
 
 });
 
@@ -409,7 +410,7 @@ function startReceive(amt){
 
 	$.mobile.loading('show');
 	localStorage.amt = amt;
-	$("#amtRec").html(amt+"$");
+	$("#amtRec").html("$"+amt);
 	$("#popupReadyRec").popup('open');
 	
 	window.setTimeout(function(){

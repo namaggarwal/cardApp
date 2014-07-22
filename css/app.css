@@ -1,3 +1,19 @@
+#loginPage,#cardPage,#transPage,#regPage,#pullPage{
+	background: #7db9e8; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #7db9e8 5%, #1a1e5a 97%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(5%,#7db9e8), color-stop(97%,#1a1e5a)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #7db9e8 5%,#1a1e5a 97%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #7db9e8 5%,#1a1e5a 97%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #7db9e8 5%,#1a1e5a 97%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #7db9e8 5%,#1a1e5a 97%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#1a1e5a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	font-family: 'segoe ui';
+}
+
+
+.transInp{
+	opacity:0.7;
+}
 .tpCardNum{
 	font-size:0.8em;
 	font-weight: normal;

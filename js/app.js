@@ -13,8 +13,11 @@ $("document").ready(function(){
 	$("#addCard").on("click",onAddCardClick);
 	$("#logout").on("click",common.logout);
 	$("#pPBtnPull").on("click",onPullButtonClick);
+	$("#pPBtnPush").on("click",onPushButtonClick);
 	$(".pPBtnAmt").on("click",onAmtButtonClick);
+	$(".pSBtnAmt").on("click",onPushAmtButtonClick);
 	$("#cnclPull").on("click",onCancelPullButtonClick);
+	$("#cnclPush").on("click",onCancelPushButtonClick);
 	$(".tPTill").on("click",onPeriodChange);
 	$("body").pagecontainer({beforeshow: beforeshowpage,show:afterpageshow});
 	$.event.special.swipe.horizontalDistanceThreshold = 10;
@@ -392,6 +395,14 @@ function onAmtButtonClick(){
 	
 }
 
+function onPushAmtButtonClick(){
+
+	var amt = $(this).attr("data-amt");
+
+	startSend(amt);
+	
+}
+
 function onPullButtonClick(){
 
 	var amt = $("#pPPrice").val();
@@ -406,6 +417,24 @@ function onPullButtonClick(){
 	startReceive(amt);
 }
 
+
+function onPushButtonClick(){
+
+	var amt = $("#pSPrice").val();
+
+	if(!( amt!="" && amt == parseInt(amt,10)) ){
+		
+		$("#errmsg").html("Please enter a valid amount.");
+		$("#errorpopup").popup("open");
+		return;
+	}
+   
+	startSend(amt);
+}
+
+
+
+
 function startReceive(amt){
 
 	$.mobile.loading('show');
@@ -418,12 +447,31 @@ function startReceive(amt){
 	},2000);
 }
 
+
+function startSend(amt){
+
+	$.mobile.loading('show');
+	localStorage.amt = amt;
+	$("#amtSen").html("$"+amt);
+	$("#popupReadySen").popup('open');
+	
+	window.setTimeout(function(){
+		initiateTransactionPush();
+	},2000);
+}
+
+
 function onCancelPullButtonClick(){
 
 	$("#popupReadyRec").popup('close');
 	$.mobile.loading('hide');
 }
 
+function onCancelPushButtonClick(){
+
+	$("#popupReadySen").popup('close');
+	$.mobile.loading('hide');
+}
 
 function initiateTransaction(){
 
@@ -494,3 +542,75 @@ function initiateTransaction(){
 
 
 }
+
+
+function initiateTransactionPush(){
+
+	var recid = "1",
+		reccardid = "2",
+	 	sendid  = localStorage.id,
+	 	sendcardid = $.parseJSON(localStorage.defcard).id, // Change this
+	 	amt = localStorage.amt;
+
+
+
+
+	$.ajax({
+
+		url:common.baseUrl+"/trans?act=add",
+		data:{"sendid":sendid,"recid":recid,"sendcardid":sendcardid,"reccardid":reccardid,"amt":amt},
+		type:"POST",
+		crossDomain :true,
+		success:function(data){
+
+			data = $.parseJSON(data);
+			$.mobile.loading('hide');
+
+			if(data["REQUEST_STATUS"] == 1){				
+				var str = '';
+				str +="<p>Sent "+amt+"$</p>";
+				str +="<p>Transaction ID : "+data["TRANSID"]+"</p>";
+				$("#popupSenSuccess").html(str);
+
+				$("#popupReadySen").on( "popupafterclose", function( event, ui ) {
+					$("#popupReadySen").off("popupafterclose");
+					$("#popupSenSuccess").popup('open',{transition:'fade'});
+				});
+				$("#popupReadySen").popup('close');
+
+				window.setTimeout(function(){
+
+					$("#popupSenSuccess").popup('close',{transition:'fade'});					
+
+				},2200);
+			}else{
+				$.mobile.loading('hide');
+				$("#errmsg").html(data["REQUEST_MESSAGE"]);
+
+				$("#popupReadySen").on( "popupafterclose", function( event, ui ) {
+					$("#popupReadySen").off("popupafterclose");
+					$("#errorpopup").popup("open");
+				});
+				$("#popupReadySen").popup('close');
+
+				
+			}
+
+		},
+		error:function(err){
+			
+			$.mobile.loading('hide');
+			$("#errmsg").html("Seems like we lost the connection.");
+			$("#popupReadySen").on( "popupafterclose", function( event, ui ) {
+					$("#errorpopup").popup("open");
+			});
+			$("#popupReadySen").popup('close');
+			
+
+		}
+
+	});
+
+
+}
+

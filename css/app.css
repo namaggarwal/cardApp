@@ -1,4 +1,4 @@
-#loginPage,#cardPage,#transPage,#regPage,#pullPage{
+#loginPage,#cardPage,#transPage,#regPage,#pullPage,#pushPage{
 	background: #7db9e8; /* Old browsers */
 	background: -moz-radial-gradient(center, ellipse cover, #7db9e8 5%, #1a1e5a 97%); /* FF3.6+ */
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(5%,#7db9e8), color-stop(97%,#1a1e5a)); /* Chrome,Safari4+ */

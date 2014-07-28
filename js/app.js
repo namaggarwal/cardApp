@@ -65,6 +65,7 @@ function onCardPageShow(){
 
 	cardLeft = ($("#cardscontainer").width() - $(".card").eq(0).outerWidth())/2;
 	$(".card").css("left",cardLeft+"px");
+	currCard = 1;
 
 }
 

@@ -54,6 +54,13 @@ white-space: nowrap;
 .card{
 	display: inline-block;
 	position: relative;
+	
+	width:240px;
+
+}
+/*.card{
+	display: inline-block;
+	position: relative;
 	background: rgba(0,0,0,0.9);
 	width:240px;
 	height:150px;
@@ -65,7 +72,7 @@ white-space: nowrap;
 	padding:2% 8%;
 	margin: 0% 4%;
 
-}
+}*/
 .banklogo{
 	
 	text-align: right;

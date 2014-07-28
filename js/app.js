@@ -1,4 +1,4 @@
-var cardCount = 3,
+var cardCount = 4,
 	currCard  = 1,
 	cardLeft  = 0;
 

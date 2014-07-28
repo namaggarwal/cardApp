@@ -475,7 +475,7 @@ function onCancelPushButtonClick(){
 
 function initiateTransaction(){
 
-	var sendid = "1",
+	var sendid = "2",
 		sendcardid = "2",
 	 	recid  = localStorage.id,
 	 	reccardid = $.parseJSON(localStorage.defcard).id, // Change this
@@ -546,7 +546,7 @@ function initiateTransaction(){
 
 function initiateTransactionPush(){
 
-	var recid = "1",
+	var recid = "2",
 		reccardid = "2",
 	 	sendid  = localStorage.id,
 	 	sendcardid = $.parseJSON(localStorage.defcard).id, // Change this

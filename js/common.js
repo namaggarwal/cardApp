@@ -1,7 +1,7 @@
 var common = {
 
 
-	baseUrl:"http://localhost/CardAppBackend",
+	baseUrl:"http://mobile.mucoms.org",
 	checkIfLoggedIn:function(){
         
         if(localStorage.id){

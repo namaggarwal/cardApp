@@ -23,6 +23,7 @@ $("document").ready(function(){
 	$.event.special.swipe.horizontalDistanceThreshold = 10;
 	$("#cardscontainer").on("swipeleft",onCardSwipeLeft);
 	$("#cardscontainer").on("swiperight",onCardSwipeRight);
+	
 	 
 
 });
@@ -50,9 +51,20 @@ var afterpageshow = function(event,ui){
 	}else if(toPage.attr("id") == "cardPage"){
 
 		onCardPageShow();
+		
+	}else if(toPage.attr("id") == "pullPage"){
+			
+		var el = $("#pPPrice");
+		el.focus();
+		
+		
+	}else if(toPage.attr("id") == "pushPage"){
+		
+		
+		$("#pSPrice").focus();
+		
 	}
 };
-
 
 function onPeriodChange(){
 
@@ -207,6 +219,16 @@ function onTransPageShow(){
 
 	});
 }
+
+function getPhoneGapPath() {
+
+    var path = window.location.pathname;
+    var path = '/android_asset/www/index.html';
+        
+    return 'file://' + path;
+
+};
+
 
 function onLoginPageInit(){	
 	
@@ -501,10 +523,18 @@ function initiateTransaction(){
 				str +="<p>Received "+amt+"$</p>";
 				str +="<p>Transaction ID : "+data["TRANSID"]+"</p>";
 				$("#popupRecSuccess").html(str);
-
+				
+				
 				$("#popupReadyRec").on( "popupafterclose", function( event, ui ) {
 					$("#popupReadyRec").off("popupafterclose");
 					$("#popupRecSuccess").popup('open',{transition:'fade'});
+					var snd = new Media("/android_asset/www/ALARM.wav",// success callback
+             				function () { alert("playAudio():Audio Success"); },
+            				// error callback
+             				function (err) { alert("playAudio():Audio Error: "); }
+        
+				    	); 		
+					snd.play();
 				});
 				$("#popupReadyRec").popup('close');
 
@@ -576,6 +606,13 @@ function initiateTransactionPush(){
 				$("#popupReadySen").on( "popupafterclose", function( event, ui ) {
 					$("#popupReadySen").off("popupafterclose");
 					$("#popupSenSuccess").popup('open',{transition:'fade'});
+					var snd = new Media("/android_asset/www/ALARM.wav",// success callback
+             				function () { alert("playAudio():Audio Success"); },
+            				// error callback
+             				function (err) { alert("playAudio():Audio Error: "); }
+        
+				    	); 		
+					snd.play();
 				});
 				$("#popupReadySen").popup('close');
 

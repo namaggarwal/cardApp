@@ -117,7 +117,7 @@
 	<div data-role="header" data-theme="a">
 		 <p>&nbsp;</p>
 		 <a href="#cardPage" data-theme="b" data-rel="page"  data-transition="slide" data-direction="reverse" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-home">Cards</a>
-		 <img src="images/vlogo.png" class="ui-btn-right" style="width: 20%;" />
+		 <img src="images/vlogo.png" class="ui-btn-right" style="width: 20%;padding-top: 0.5%;" />
 	</div><!-- /header -->	
 	<div role="main" class="ui-content">		
 		<div class="pullCont" style="width:85%;margin:auto">
@@ -188,7 +188,7 @@
 	<div data-role="header" data-theme="a">
 		 <p>&nbsp;</p>
 		 <a href="#cardPage" data-theme="b" data-rel="page"  data-transition="slide" data-direction="reverse" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-home">Cards</a>
-		 <img src="images/vlogo.png" class="ui-btn-right" style="width: 20%;" />
+		 <img src="images/vlogo.png" class="ui-btn-right" style="width: 20%;padding-top: 0.5%;" />
 	</div><!-- /header -->	
 	<div role="main" class="ui-content">
 				
@@ -253,10 +253,10 @@
 	<div data-role="header" data-theme="a">
 		 <p>&nbsp;</p>
 		 <a href="#cardPage" data-theme="b" data-rel="page"  data-transition="slide" data-direction="reverse" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-home">Cards</a>
-		 <img src="images/vlogo.png" class="ui-btn-right" style="width: 20%;" />
+		 <img src="images/vlogo.png" class="ui-btn-right" style="width: 20%;padding-top: 0.5%;" />
 	</div><!-- /header -->	
 	<div role="main" class="ui-content">
-		<ul data-role="listview">
+		<!-- <ul data-role="listview">
 		    <li>
 		    	<div class="offerCont">
 		    		<div class="ui-grid-a">
@@ -311,7 +311,75 @@
 		    		</div>
 		    	</div>
 		    </li>
-		</ul>
+		</ul> -->
+
+		<div class="ui-grid-a">
+		    <div class="ui-block-a">
+		    	<div class="offerImgCont">
+		    		<img src="images/test1.jpg" />
+		    	</div>
+		    	<div class="offerText">
+		    		<div>
+	    				Prefrential rates @ AsiaMedic
+	    			</div>
+		    	</div>
+		    </div>
+		    <div class="ui-block-b">
+		    	<div class="offerImgCont">
+		    		<img src="images/test2.jpg" />
+		    	</div>
+		    	<div class="offerText">
+		    		<div>
+	    				S$60 Voucher @ Harvey Norman
+	    			</div>
+		    	</div>
+		    </div>		    
+		</div>
+		<div class="ui-grid-a" style="margin-top:8%">
+		    <div class="ui-block-a">
+		    	<div class="offerImgCont">
+		    		<img src="images/test3.jpg" />
+		    	</div>
+		    	<div class="offerText">
+		    		<div>
+	    				15% Discount @ Georgio Ferrari
+	    			</div>
+		    	</div>
+		    </div>
+		    <div class="ui-block-b">
+		    	<div class="offerImgCont">
+		    		<img src="images/test4.jpg" />
+		    	</div>
+		    	<div class="offerText">
+		    		<div>
+	    				Free Admissions on SIM Programmes
+	    			</div>
+		    	</div>
+		    </div>		    
+		</div>
+		<div class="ui-grid-a" style="margin-top:8%">
+		    <div class="ui-block-a">
+		    	<div class="offerImgCont">
+		    		<img src="images/test5.jpg" />
+		    	</div>
+		    	<div class="offerText">
+		    		<div>
+	    				&nbsp; 10% off @ <br/>Big Hotel
+	    			</div>
+		    	</div>
+		    </div>
+		    <div class="ui-block-b">
+		    	<div class="offerImgCont">
+		    		<img src="images/test6.jpg" />
+		    	</div>
+		    	<div class="offerText">
+		    		<div>
+	    				10% off @ <br/> Courts
+	    			</div>
+		    	</div>
+		    </div>		    
+		</div>
+
 
 	</div>
 		
@@ -330,7 +398,7 @@
     	</div>
 	    <form>
 	        <div style="padding:10px 20px;">
-	        	<fieldset data-role="controlgroup">
+	        	<fieldset data-role="controlgroup"> 
 	        		<div class="ui-grid-a" style="text-align:center;">	        			
 				    	<span id="addErr" style="display:none;color:RED"></span>
 				    </div>
@@ -356,7 +424,7 @@
 				</fieldset>	           
 	        </div>
 	    </form>
-	</div>
+	</div>	
 	<div data-role="panel" id="optionPanel" data-theme="b" data-display="overlay" data-position="right">
     	<!-- panel content goes here -->
     	<ul data-role="listview">            
@@ -370,30 +438,24 @@
 	</div><!-- /panel --> 
 	
 	<div data-role="header" data-theme="a">
+		<img src="images/vlogo.png" class="ui-btn-left" style="width: 20%;padding-top: 0.5%;" />
 		 <p>&nbsp;</p>
 		 <a style="padding-left:0.5em" href="#optionPanel" data-rel="panel"  class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-right ui-icon-gear">Options</a>
 
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 		<div id="cardscontainer">
-			<div class="card" data-num="1">
-				<!-- <div class="banklogo">DBS</div>			        			
-				<div class="cardnumber">4628 4500 1722 3877</div>
-				<div class="valid">
-					<span class="disp print">VALID THRU</span><span class="disp month">10</span>/<span class="disp year">18</span>
-				</div>
-				<div class="holdername">AGGARWAL NAMAN</div>
-				<div class="visalogo">VISA</div> -->
-				<img alt="" title="" src="images/card1.png" border="0" width="240"/>
+			<div class="card" data-num="1">				
+				<img alt="" title="" src="images/card1.png" border="0" width="250"/>
 			</div>
 			<div class="card" data-num="2">
-				<img alt="" title="" src="images/card2.png" border="0" width="240"/>
+				<img alt="" title="" src="images/card2.png" border="0" width="250"/>
 			</div>
 			<div class="card" data-num="3">
-				<img alt="" title="" src="images/card3.png" border="0" width="240"/>
+				<img alt="" title="" src="images/card3.png" border="0" width="250"/>
 			</div>
 			<div class="card" data-num="4">
-				<img alt="" title="" src="images/card4.png" border="0" width="240"/>
+				<img alt="" title="" src="images/card4.png" border="0" width="250"/>
 			</div>
 		</div>
 		<div id="btnCont" >
@@ -427,7 +489,7 @@
       			</div>
   				<div class="ui-block-b" style="width:2%">
   				</div>
-			    <div class="ui-block-c transInp" style="width:78%">
+			    <div class="ui-block-c transInp" style="width:78%">file:///C:/Users/visalab1/Projects/vistar/www/images/card3.png
         			<input type="text" name="regPNum" id="regPNum" placeholder="Phone Number">
       			</div>
       		</div>

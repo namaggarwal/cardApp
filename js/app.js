@@ -1,6 +1,7 @@
 var cardCount = 4,
 	currCard  = 1,
-	cardLeft  = 0;
+	cardLeft  = 0,
+	recReady = 0;
 
 
 $("document").ready(function(){
@@ -153,7 +154,7 @@ function onTransPageShow(){
 					str += '<li>';
 					str += '<div class="ui-grid-a">';
 		        	str += '<div class="ui-block-a">';
-		        	str += '<div class="fontBold">'+data["TRANSREC"][tr]["cardname"]+'<span class="tpCardNum">('+data["TRANSREC"][tr]["cardnum"]+')</span></div>';
+		        	str += '<div class="fontBold">'+data["TRANSREC"][tr]["cardnum"]+'</div>';
 		        	str += '<div class="tpTime">'+data["TRANSREC"][tr]["transtime"]+'</div>';
 		        	str += '</div>';
 		        	str += '<div class="ui-block-b alignRight">'+data["TRANSREC"][tr]["amount"]+'$</div>';
@@ -171,7 +172,7 @@ function onTransPageShow(){
 					str += '<li>';
 					str += '<div class="ui-grid-a">';
 		        	str += '<div class="ui-block-a">';
-		        	str += '<div class="fontBold">'+data["TRANSSENT"][tr]["cardname"]+'<span class="tpCardNum">('+data["TRANSSENT"][tr]["cardnum"]+')</span></div>';
+		        	str += '<div class="fontBold">'+data["TRANSSENT"][tr]["cardnum"]+'</div>';
 		        	str += '<div class="tpTime">'+data["TRANSSENT"][tr]["transtime"]+'</div>';
 		        	str += '</div>';
 		        	str += '<div class="ui-block-b alignRight">'+data["TRANSSENT"][tr]["amount"]+'$</div>';
@@ -462,12 +463,27 @@ function startReceive(amt){
 
 	$.mobile.loading('show');
 	localStorage.amt = amt;
-	$("#amtRec").html("$"+amt);
-	$("#popupReadyRec").popup('open');
+	$("#amtRec").html("$"+amt);	
+
+
+	nfc.addTagDiscoveredListener(function(){
+		if(recReady == 1){
+			recReady = 0;
+			initiateTransaction();
+		}
+	},function(){ 
+		$("#popupReadyRec").popup('open');
+		recReady = 1;
+	},
+	function(){
+		console.log("Error");
+	});
+
+
 	
-	window.setTimeout(function(){
+	/*window.setTimeout(function(){
 		initiateTransaction();
-	},2000);
+	},2000);*/
 }
 
 
@@ -488,6 +504,7 @@ function onCancelPullButtonClick(){
 
 	$("#popupReadyRec").popup('close');
 	$.mobile.loading('hide');
+	recReady = 0;
 }
 
 function onCancelPushButtonClick(){
@@ -529,9 +546,9 @@ function initiateTransaction(){
 					$("#popupReadyRec").off("popupafterclose");
 					$("#popupRecSuccess").popup('open',{transition:'fade'});
 					var snd = new Media("/android_asset/www/ALARM.wav",// success callback
-             				function () { alert("playAudio():Audio Success"); },
+             				function () { },
             				// error callback
-             				function (err) { alert("playAudio():Audio Error: "); }
+             				function (err) {  }
         
 				    	); 		
 					snd.play();
@@ -607,9 +624,9 @@ function initiateTransactionPush(){
 					$("#popupReadySen").off("popupafterclose");
 					$("#popupSenSuccess").popup('open',{transition:'fade'});
 					var snd = new Media("/android_asset/www/ALARM.wav",// success callback
-             				function () { alert("playAudio():Audio Success"); },
+             				function () { },
             				// error callback
-             				function (err) { alert("playAudio():Audio Error: "); }
+             				function (err) {  }
         
 				    	); 		
 					snd.play();
